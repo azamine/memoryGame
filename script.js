@@ -42,9 +42,34 @@ function countDown(){
         flipperAll(cards)
     }
 }
+///Counteur UP
+let chrono=document.getElementById('chrono')
+secondes=0;
+minutes=0;
+let timeout;
+
+const countUp=()=>{
+    secondes=parseInt(secondes);
+    minutes=parseInt(minutes);    
+    secondes++
+    if(secondes==60){
+        minutes++
+        secondes=0
+    }
+    //Affichage:
+    if(secondes<10){
+        secondes="0"+secondes;
+    }
+    if(minutes<10){
+        minutes="0"+minutes;
+    }
+    chrono.textContent=`${minutes}:${secondes}`;
+    timeout=setTimeout(countUp,1000)
+}
+
 let counter=setInterval(countDown,1000);
 
-
+let chronoTime;
 
 function flipperAll(cards)
 {
@@ -71,7 +96,9 @@ function stopClick(){
 
 function flipperCard(card,i){
     nbreClique.textContent=parseInt(nbreClique.textContent)+1;
- 
+    if (parseInt(nbreClique.textContent)==1){
+        countUp();
+    }
     if (nbr==0){
         back1=backs[i].getElementsByTagName('img')[0].src;
         card1=i
@@ -115,7 +142,7 @@ function flipperCard(card,i){
                     txtCounter.style.fontSize='1.5rem';
                     txtCounter.style.color='red';
                     txtCounter.innerHTML="Bravo! Vous avez gagné"
-                    
+                    clearTimeout(timeout)
                 }
             }
             back1="";
