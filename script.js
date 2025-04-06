@@ -42,7 +42,6 @@ function countDown(){
         flipperAll(cards)
     }
 }
-
 let counter=setInterval(countDown,1000);
 
 
@@ -60,9 +59,9 @@ function flipperAll(cards)
     
 }
 var back1,back2,card1,card2;
-
+let score=document.getElementById('score')
 let nbreClique=document.getElementById('essai')
-
+let found=document.getElementById('found')
 
 function stopClick(){
     container.classList.add('stopClick')
@@ -71,6 +70,8 @@ function stopClick(){
 
 
 function flipperCard(card,i){
+    nbreClique.textContent=parseInt(nbreClique.textContent)+1;
+ 
     if (nbr==0){
         back1=backs[i].getElementsByTagName('img')[0].src;
         card1=i
@@ -98,12 +99,24 @@ function flipperCard(card,i){
             {
                 cards[card1].classList.add('show')
                 cards[card2].classList.add('show')
+                score.innerHTML=(s*2/parseInt(nbreClique.innerHTML)*100).toFixed(2)+ ' %'
             }
             else
             {
                 
                 cards[card1].classList.add('zoom');
                 cards[card2].classList.add('zoom');
+                
+                s=Number(found.innerHTML);
+                s+=1;
+                found.innerHTML=String(s);
+                score.innerHTML=(s*2/parseInt(nbreClique.innerHTML)*100).toFixed(2)+ ' %'
+                if (s==9){
+                    txtCounter.style.fontSize='1.5rem';
+                    txtCounter.style.color='red';
+                    txtCounter.innerHTML="Bravo! Vous avez gagné"
+                    
+                }
             }
             back1="";
             back2="";
